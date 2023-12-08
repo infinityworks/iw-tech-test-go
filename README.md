@@ -10,13 +10,20 @@
 
 ## Getting Started
 
-* Build: `make build`
-* Run: `make run`
-* Test: `make test`
-* View: `make run` then navigate to http://localhost:8080
-
-## Submission
-
-* Please do not fork this repository.
-* Please do not commit your code to GitHub.
-* Send us your code, zipped up, as per the instructions in email we sent.
+* Build: 
+```shell
+make build
+```
+* Run: 
+```shell
+make run
+```
+* Test: 
+```shell
+make test
+```
+* View: 
+```shell
+make run
+```
+then navigate to http://localhost:8080
