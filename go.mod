@@ -1,4 +1,4 @@
-module github.com/infinityworks/iw-tech-test-go
+module github.com/aviva-verde/iw-tech-test-go
 
 go 1.12
 

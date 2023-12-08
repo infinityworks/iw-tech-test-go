@@ -2,8 +2,8 @@ package api
 
 import (
 	"encoding/json"
+	hygiene "github.com/aviva-verde/iw-tech-test-go"
 	"github.com/gorilla/mux"
-	hygiene "github.com/infinityworks/iw-tech-test-go"
 	"io/ioutil"
 	"log"
 	"net/http"
