@@ -1,4 +1,4 @@
-# Infinity Works - Full Stack Tech Test (Go)
+# Aviva Zero - Full Stack Tech Test (Go)
 
 ![Preview of Frontend](preview.png)
 
