@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/aviva-verde/iw-tech-test-go/api"
+	"github.com/aviva-verde/tech-test-backend-go/api"
 )
 
 func main() {

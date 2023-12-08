@@ -2,7 +2,7 @@ package api
 
 import (
 	"encoding/json"
-	hygiene "github.com/aviva-verde/iw-tech-test-go"
+	hygiene "github.com/aviva-verde/tech-test-backend-go"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"

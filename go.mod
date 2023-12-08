@@ -1,4 +1,4 @@
-module github.com/aviva-verde/iw-tech-test-go
+module github.com/aviva-verde/tech-test-backend-go
 
 go 1.12
 
