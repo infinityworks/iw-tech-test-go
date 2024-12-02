@@ -1,4 +1,4 @@
-package hygiene
+package models
 
 type Authority struct {
 	ID   int    `json:"id"`

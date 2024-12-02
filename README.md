@@ -4,26 +4,28 @@
 
 ## Prerequisites
 
-* Go 1.12
-* Access to the internet
-* Suitable development environment
+- Go 1.21
+- Access to the internet
+- Suitable development environment
 
 ## Getting Started
 
-* Build: 
-```shell
-make build
+- Build:
+
+```sh
+go build
 ```
-* Run: 
-```shell
-make run
+
+- Run:
+
+```sh
+go run main.go
 ```
-* Test: 
-```shell
-make test
+
+- Test:
+
+```sh
+go test ./...
 ```
-* View: 
-```shell
-make run
-```
+
 then navigate to http://localhost:8080

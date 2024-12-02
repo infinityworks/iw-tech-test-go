@@ -2,14 +2,18 @@ package api
 
 import (
 	"encoding/json"
-	hygiene "github.com/aviva-verde/tech-test-backend-go"
-	"github.com/gorilla/mux"
-	"io/ioutil"
-	"log"
+	"io"
+	"log/slog"
 	"net/http"
+	"os"
+
+	"github.com/aviva-verde/tech-test-backend-go/models"
+	"github.com/gorilla/mux"
 )
 
-type Server struct{}
+type Server struct {
+	Logger *slog.Logger
+}
 
 func (s Server) Start() {
 	router := mux.NewRouter()
@@ -24,27 +28,33 @@ func (s Server) Start() {
 		Addr:    "127.0.0.1:8080",
 	}
 
-	log.Fatal(srv.ListenAndServe(), router)
+	s.Logger.Info("Server started", slog.String("address", srv.Addr))
+	if err := srv.ListenAndServe(); err != nil {
+		s.Logger.Error("Server failed to start",
+			slog.String("address", srv.Addr),
+			slog.Any("error", err),
+		)
+		os.Exit(1)
+	}
 }
 
 func (s Server) getAuthorities(w http.ResponseWriter, r *http.Request) {
+	s.Logger.Info("Getting authorities")
 	req, _ := http.NewRequest(http.MethodGet, "http://api.ratings.food.gov.uk/Authorities", nil)
 	req.Header.Set("x-api-version", "2")
 	res, _ := http.DefaultClient.Do(req)
-	body, _ := ioutil.ReadAll(res.Body)
+	body, _ := io.ReadAll(res.Body)
 
-	var fsaAuthorities hygiene.FSAAuthorities
+	var fsaAuthorities models.FSAAuthorities
 	err := json.Unmarshal(body, &fsaAuthorities)
 	if err != nil {
-		panic("error")
+		s.Logger.Error("error unmarshalling authorities", "error", err)
 	}
 
-	var authorities []hygiene.Authority
+	var authorities []models.Authority
 	for _, authority := range fsaAuthorities.Authorities {
-		authorities = append(authorities, hygiene.Authority{
-			ID:   authority.ID,
-			Name: authority.Name,
-		})
+		model := models.Authority(authority)
+		authorities = append(authorities, model)
 	}
 
 	data, _ := json.Marshal(authorities)
@@ -54,7 +64,8 @@ func (s Server) getAuthorities(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s Server) getAuthority(w http.ResponseWriter, r *http.Request) {
-	authorityRating := []hygiene.AuthorityRating{
+	s.Logger.Info("Getting authority")
+	authorityRating := []models.AuthorityRating{
 		{Name: "5-star", Value: 22.41},
 		{Name: "4-star", Value: 43.13},
 		{Name: "3-star", Value: 12.97},
