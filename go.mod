@@ -1,4 +1,4 @@
-module github.com/infinityworks/iw-tech-test-go
+module github.com/infinityworks/nge-exercise-go
 
 go 1.24
 

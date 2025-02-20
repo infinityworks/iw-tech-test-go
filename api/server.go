@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
-	hygiene "github.com/infinityworks/iw-tech-test-go"
+	hygiene "github.com/infinityworks/nge-exercise-go"
 )
 
 type Server struct{}

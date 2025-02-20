@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/infinityworks/iw-tech-test-go/api"
+	"github.com/infinityworks/nge-exercise-go/api"
 )
 
 func main() {
