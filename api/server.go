@@ -2,11 +2,12 @@ package api
 
 import (
 	"encoding/json"
-	"github.com/gorilla/mux"
-	hygiene "github.com/infinityworks/iw-tech-test-go"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	hygiene "github.com/infinityworks/nge-exercise-go"
 )
 
 type Server struct{}
@@ -31,20 +32,17 @@ func (s Server) getAuthorities(w http.ResponseWriter, r *http.Request) {
 	req, _ := http.NewRequest(http.MethodGet, "http://api.ratings.food.gov.uk/Authorities", nil)
 	req.Header.Set("x-api-version", "2")
 	res, _ := http.DefaultClient.Do(req)
-	body, _ := ioutil.ReadAll(res.Body)
+	body, _ := io.ReadAll(res.Body)
 
 	var fsaAuthorities hygiene.FSAAuthorities
 	err := json.Unmarshal(body, &fsaAuthorities)
 	if err != nil {
-		panic("error")
+		http.Error(w, "Failed to unmarshal response", http.StatusInternalServerError)
 	}
 
 	var authorities []hygiene.Authority
 	for _, authority := range fsaAuthorities.Authorities {
-		authorities = append(authorities, hygiene.Authority{
-			ID:   authority.ID,
-			Name: authority.Name,
-		})
+		authorities = append(authorities, hygiene.Authority(authority))
 	}
 
 	data, _ := json.Marshal(authorities)
